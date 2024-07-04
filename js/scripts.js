@@ -40,7 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', () => {
-                    projectList.removeChild(li);
+
+                    //confirm message
+                    if(confirm('Are you sure you want to delete this project?')){
+                        projectList.removeChild(li);
+
+                    }
+     
                 });
                 li.appendChild(deleteBtn);
                 projectList.appendChild(li);
