@@ -30,29 +30,66 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectList = document.getElementById('project-list');
         const addProjectBtn = document.getElementById('add-project-btn');
         const filterInput = document.getElementById('filter');
-        
-        // Projeleri ekleme
+
+
+        //Modal elements
+
+        const modal = document.getElementById('add-project-modal');
+        const closeModal =document.querySelector('.close');
+        const saveProjectBtn = document.getElementById('save-project-btn');
+        const projectNameInput = document.getElementById('project-name');
+        const projectDescriptionInput = document.getElementById('project-description');
+        const projectFileInput = document.getElementById('project-file');
+        const projectDateInput = document.getElementById('project-date');
+
+        //Added Project button click event to open modal
         addProjectBtn.addEventListener('click', () => {
-            const projectName = prompt('Enter project name:');
-            if (projectName) {
+            modal.style.display = 'flex';
+        });
+
+        // Close modal event
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Save project button click event 
+        saveProjectBtn.addEventListener('click', () => {
+            const projectName = projectNameInput.value;
+            const projectDescription = projectDescriptionInput.value;
+            const projectFile = projectFileInput.files[0];
+            const projectDate = projectDateInput.value;
+
+
+            if(projectName && projectDescription && projectFile && projectDate) {
                 const li = document.createElement('li');
-                li.textContent = projectName;
+                li.innerHTML = `<strong>${projectName}</strong><p>${projectDescription}</p><p>${projectDate}</p>`;
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', () => {
-
-                    //confirm message
-                    if(confirm('Are you sure you want to delete this project?')){
+                    if(confirm('Are you sure you want to delete this project? ')){
                         projectList.removeChild(li);
-
-                    }
-     
+                    } 
                 });
+                
                 li.appendChild(deleteBtn);
                 projectList.appendChild(li);
+
+                //Clear inputs and close modal
+
+                projectNameInput.value = '';
+                projectDescriptionInput.value = '';
+                projectFileInput.value = '';
+                projectDateInput.value = '';
+                modal.style.display = 'none';
+            
+
+            } else {
+                alert('Please fill in all fields');
             }
         });
-        
+
+
+
         // Projeleri filtreleme
         filterInput.addEventListener('keyup', () => {
             const filterValue = filterInput.value.toLowerCase();
