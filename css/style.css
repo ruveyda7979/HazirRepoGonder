@@ -287,7 +287,7 @@ body {
     background-color:#c5d5e8;
 }
 
-/* Önceki stiller buraya gelecek... */
+/* For Projects Page*/
 
 .container {
     max-width: 800px;
@@ -409,3 +409,44 @@ button:hover {
 }
 
 
+/* JSON Yönetici sayfası için still*/
+
+#json-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f4f4f4;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#json-container label {
+    display: block;
+    margin-top: 10px;
+}
+
+#json-container input[type = "text"],
+#json-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#json-container textarea.editor {
+    height: 200px;
+}
+
+#json-container button {
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+#json-container button:hover {
+    background: #555;
+}
