@@ -104,4 +104,53 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+
+    if (document.getElementById('json-container')) {
+        const newJsonBtn = document.getElementById('new-json-btn');
+        const searchBtn = document.getElementById('search-btn');
+        const searchJsonInput = document.getElementById('search-json');
+        const jsonForm = document.getElementById('json-form');
+        const saveBtn = document.getElementById('save-btn');
+
+
+        newJsonBtn.addEventListener('click', () => {
+            jsonForm.style.display ='block';
+            clearForm();
+        });
+
+        searchBtn.addEventListener('click', () => {
+            const searchValue = searchJsonInput.value;
+            //JSON arama fonksiyonu burada olacak
+        });
+
+        saveBtn.addEventListener('click', () => {
+            const jsonData = {
+                name: document.getElementById('json-name').value,
+                url: document.getElementById('request-url').value,
+                content: document.getElementById('content').value,
+                relatedTable: document.getElementById('related-table').value,
+                sendPattern: document.getElementById('sent-pattern').value,
+                receivedPattern:document.getElementById('received-pattern').value
+            };
+            //JSON kaydetme fonksiyonu burada olacak
+        });
+
+        function clearForm(){
+            document.getElementById('json-name').value = '';
+            document.getElementById('request-url').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('related-table').value = '';
+            document.getElementById('sent-pattern').value = '';
+            document.getElementById('received-pattern').value =''; 
+
+        }
+
+    
+    }
+
+
+
+
+
 });
