@@ -413,6 +413,8 @@ button:hover {
 
 #json-container {
     display: flex;
+    margin-top: 100px;
+    height: calc(100vh-100px);/*Ekran yüksekliğinin kalanını kapla*/
 }
 
 .left-column{
@@ -420,11 +422,13 @@ button:hover {
     padding: 10px;
     background: #f4f4f4;
     border-right: 1px solid #ddd;
+    overflow-y: auto;
 }
 
 .right-column {
     width: 70%;
     padding: 10px;
+    overflow-y: auto;
 }
 
 #json-list {
