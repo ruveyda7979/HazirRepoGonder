@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('json-container')) {
         const newJsonBtn = document.getElementById('new-json-btn');
-        const searchBtn = document.getElementById('search-btn');
         const searchJsonInput = document.getElementById('search-json');
         const jsonForm = document.getElementById('json-form');
         const saveBtn = document.getElementById('save-btn');
+        const jsonList = document.getElementById('json-list');
 
 
         newJsonBtn.addEventListener('click', () => {
@@ -119,9 +119,20 @@ document.addEventListener('DOMContentLoaded', () => {
             clearForm();
         });
 
-        searchBtn.addEventListener('click', () => {
-            const searchValue = searchJsonInput.value;
-            //JSON arama fonksiyonu burada olacak
+        searchJsonInput.addEventListener('keyup', () => {
+            const searchValue = searchJsonInput.value.toLowerCase();
+            const jsonItems = jsonList.getElementsByTagName('li');
+            Array.from(jsonItems).forEach(item => {
+                const itemName = item.textContent.toLowerCase();
+                if(itemName.includes(searchValue)) {
+                    item.style.display = 'block';
+
+                } else {
+                    item.style.display = 'none';
+                }
+
+
+            });
         });
 
         saveBtn.addEventListener('click', () => {
@@ -133,7 +144,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendPattern: document.getElementById('sent-pattern').value,
                 receivedPattern:document.getElementById('received-pattern').value
             };
-            //JSON kaydetme fonksiyonu burada olacak
+            if (jsonData.name) {
+                const li = document.createElement('li');
+                li.textContent = jsonData.name;
+
+                // Added Delete button
+
+                const deleteBtn =  document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => {
+                    if(confirm('Are you sure you want to delete this JSON entry?')){
+                        jsonList.removeChild(li);
+                    }
+                });
+
+                li.appendChild(deleteBtn);
+                jsonList.appendChild(li);
+                clearForm();
+            } else {
+                alert('JSON Name isrequired.');
+            }
         });
 
         function clearForm(){
