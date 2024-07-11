@@ -423,6 +423,7 @@ button:hover {
     background: #f4f4f4;
     border-right: 1px solid #ddd;
     overflow-y: auto;
+    max-height: calc(100vh-100px); /* Header'dan kalan alanı kaplar*/
 }
 
 .right-column {

@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 url: document.getElementById('request-url').value,
                 content: document.getElementById('content').value,
                 relatedTable: document.getElementById('related-table').value,
+                date: document.getElementById('date').value,
                 sentPattern: sentPatternEditor.getValue(),  // Bu satırı düzelttim
                 receivedPattern: receivedPatternEditor.getValue()  // Bu satırı düzelttim
             };
@@ -199,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('request-url').value = jsonData.url;
             document.getElementById('content').value = jsonData.content;
             document.getElementById('related-table').value = jsonData.relatedTable;
+            document.getElementById('date').value = jsonData.date;
         
             // CodeMirror editörlerinin değerlerini güncelle
             sentPatternEditor.setValue(jsonData.sentPattern);
@@ -214,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('request-url').value = '';
             document.getElementById('content').value = '';
             document.getElementById('related-table').value = '';
+            document.getElementById('date').value = '';
             sentPatternEditor.setValue('');
             receivedPatternEditor.setValue('');
         }
