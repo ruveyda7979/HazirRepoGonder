@@ -289,12 +289,16 @@ body {
 
 /* For Projects Page*/
 
+
+
+
 .container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     background: #789cc0df;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /*Add a top margin to the container*/
 }
 
 h1 {
@@ -415,6 +419,7 @@ button:hover {
     display: flex;
     margin-top: 100px;
     height: calc(100vh-100px);/*Ekran yüksekliğinin kalanını kapla*/
+    width: 100%;
 }
 
 .left-column{
@@ -430,6 +435,8 @@ button:hover {
     width: 70%;
     padding: 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #json-list {
@@ -471,10 +478,12 @@ button:hover {
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    height: 35px; /*Yüksekliği 35px yap*/
+    box-sizing: border-box; /*Padding ve border dahil olacak şekilde hesapla*/
 }
 
 #json-form textarea.editor {
-    height: 200px;
+    height: 600px;
 }
 
 #json-form button {
@@ -488,4 +497,30 @@ button:hover {
 
 #json-form button:hover {
     background: #555;
+}
+
+.pattern-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pattern-container .editor-wrapper {
+    width: 48%;
+}
+
+#json-form .pattern-container label {
+    display: block;
+    margin-top: 10px;
+}
+
+#json-form .pattern-container select,
+#json-form .pattern-container .editor {
+    width: 100%;
+}
+
+.CodeMirror {
+    height: 600px; /*Editör yüksekliği büyütülmüş*/
+    border: 1px solid #ddd; /*Sınır ekle */
+    border-radius: 4px;
+    box-sizing: border-box;
 }

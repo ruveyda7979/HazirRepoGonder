@@ -25,6 +25,45 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    //Registration form submission
+    const registrationForm = document.querySelector('.register-form');
+    if(registrationForm){
+        registrationForm.addEventListener('submit',(event) => {
+            event.preventDefault();
+            //Here you would normally send the data to the server
+            const fullName = registrationForm.querySelector('input[type="text"]').value;
+            const email = registrationForm.querySelector('input[type="email"]').value;
+            const password = registrationForm.querySelector('input[type="password"]').value;
+    
+            console.log('User registered:', {fullName,email,password});
+    
+            //Redirect to login form
+            document.querySelector('.wrapper').classList.remove('active');
+        });
+
+    }
+    
+
+    //Login form submission
+    const loginForm = document.querySelector('.login form');
+    if(loginForm) {
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            //Here you would normally verify the credentials with the server
+            const email = loginForm.querySelector('input[type="email"]').value;
+            const password = loginForm.querySelector('input[type="password"]').value;
+    
+            console.log('User logged in:', {email,password});
+    
+            //Redirect to projects page 
+            window.location.href = 'projects.html'
+    
+        });
+    
+
+    }
+    
+
     // Projects.html sayfasına özgü kodlar
     if (document.getElementById('project-list')) {
         const projectList = document.getElementById('project-list');
@@ -110,12 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // CodeMirror editörlerini oluşturma
         const sentPatternEditor = CodeMirror.fromTextArea(document.getElementById('sent-pattern'), {
             lineNumbers: true,
-            mode: 'javascript'
+            mode: 'javascript',
+            lineWrapping:true
         });
 
         const receivedPatternEditor = CodeMirror.fromTextArea(document.getElementById('received-pattern'), {
             lineNumbers: true,
-            mode: 'javascript'
+            mode: 'javascript',
+            lineWrapping:true
         });
 
         // Dil seçimi değiştiğinde editör modunu güncelleme işlemleri

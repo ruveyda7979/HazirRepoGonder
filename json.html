@@ -48,24 +48,33 @@
 
             <label for="date">Date:</label>
             <input type="date" id="date">
+            <div class="pattern-container">
+                <div class="editor-wrapper">
+                    <label for="sent-pattern">Sent Pattern:</label>
+                    <select  id="sent-pattern-language">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <!--Diğer diller buraya eklenebilir-->
+                    </select>
+                    <textarea  id="sent-pattern" class="editor"></textarea>
+                </div>
 
-            <label for="sent-pattern">Sent Pattern:</label>
-            <select  id="sent-pattern-language">
-                <option value="javascript">JavaScript</option>
-                <option value="python">Python</option>
-                <!--Diğer diller buraya eklenebilir-->
-            </select>
-            <textarea  id="sent-pattern" class="editor"></textarea>
+                <div class="editor-wrapper">
+                    <label for="received-pattern">Received Pattern:</label>
+                    <select id="received-pattern-language">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <!--Diğer diller buraya eklenebilir-->
+        
+                    </select>
+                    <textarea id="received-pattern" class="editor"></textarea>
+        
+                </div>
+            </div>
 
-            <label for="received-pattern">Received Pattern:</label>
-            <select id="received-pattern-language">
-                <option value="javascript">JavaScript</option>
-                <option value="python">Python</option>
-                <!--Diğer diller buraya eklenebilir-->
+            
 
-            </select>
-            <textarea id="received-pattern" class="editor"></textarea>
-
+            
 
             <button id="save-btn">Save</button>
         </div>
