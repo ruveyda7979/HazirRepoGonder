@@ -7,54 +7,65 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnPopup = document.querySelector('.btnLogin-popup');
         const iconClose = document.querySelector('.icon-close');
 
-        
- 
-       btnPopup.onclick = () => {
-        wrapper.style.display = 'flex';
-       };
+        registerLink.addEventListener('click', () => {
+            wrapper.classList.add('active');
+        });
 
-       iconClose.onclick = () => {
-        wrapper.style.display ='none';
-       };
-    }
+        loginLink.addEventListener('click', () => {
+            wrapper.classList.remove('active');
+        });
+
+        btnPopup.addEventListener('click', () => {
+
+            wrapper.style.display = 'flex';
+            wrapper.classList.add('active-popup')
+        });
+
+        iconClose.addEventListener('click', () => {
+            wrapper.style.display = 'none';
+            wrapper.classList.remove('active-popup');
+            wrapper.classList.remove('active');
+        });
+      
 
     //Registration form submission
     const registrationForm = document.querySelector('.register-form');
-    if(registrationForm){
+    
         registrationForm.addEventListener('submit',(event) => {
             event.preventDefault();
             //Here you would normally send the data to the server
             const fullName = registrationForm.querySelector('input[type="text"]').value;
             const email = registrationForm.querySelector('input[type="email"]').value;
             const password = registrationForm.querySelector('input[type="password"]').value;
-    
-            console.log('User registered:', {fullName,email,password});
-    
-            //Redirect to login form
-            document.querySelector('.wrapper').classList.remove('active');
+
+            //After successful registraition, redirect to login
+            alert(`Registered with Name: ${fullName}, Email: ${email}`);
+            wrapper.classList.remove('active');
+        
         });
 
-    }
+    
     
 
     //Login form submission
     const loginForm = document.querySelector('.login form');
-    if(loginForm) {
+    
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            //Here you would normally verify the credentials with the server
+            //Here you would normally send the data to the server
             const email = loginForm.querySelector('input[type="email"]').value;
             const password = loginForm.querySelector('input[type="password"]').value;
-    
-            console.log('User logged in:', {email,password});
-    
-            //Redirect to projects page 
-            window.location.href = 'projects.html'
+
+            //After successful login,redirect to projects page
+            alert(`Logged in with Email: ${email}`);
+            window.location.href ='projects.html';
+
     
         });
+    }
     
 
-    }
+    
     
 
     // Projects.html sayfasına özgü kodlar
@@ -73,6 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectFileInput = document.getElementById('project-file');
         const projectDateInput = document.getElementById('project-date');
 
+        // Project Details Modal Elements
+        const projectDetailsModal = document.getElementById('project-details-modal');
+        const closeDetailsModal = projectDetailsModal.querySelector('.close');
+        const detailProjectName = document.getElementById('detail-project-name');
+        const detailProjectDescription = document.getElementById('detail-project-description');
+        const detailProjectDate = document.getElementById('detail-project-date');
+        const detailProjectFile = document.getElementById('detail-project-file');
+
         // Added Project button click event to open modal
         addProjectBtn.addEventListener('click', () => {
             modal.style.display = 'flex';
@@ -85,22 +104,36 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
         });
 
+        // Close project details modal event
+        closeDetailsModal.addEventListener('click', () => {
+            projectDetailsModal.style.display = 'none';
+        });
+
         // Save project button click event
         saveProjectBtn.addEventListener('click', () => {
             const projectName = projectNameInput.value;
             const projectDescription = projectDescriptionInput.value;
-            const projectFile = projectFileInput.files[0];
+            const projectFile = projectFileInput.files[0] ? projectFileInput.files[0].name : '';
             const projectDate = projectDateInput.value;
 
-            if (projectName && projectDescription && projectFile && projectDate) {
+            if (projectName && projectDescription  && projectDate) {
                 const li = document.createElement('li');
                 li.innerHTML = `<strong>${projectName}</strong><p>${projectDescription}</p><p>${projectDate}</p>`;
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
-                deleteBtn.addEventListener('click', () => {
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Delete butonunun click event inin yayılmasını durdurmak için
                     if (confirm('Are you sure you want to delete this project? ')) {
                         projectList.removeChild(li);
                     }
+                });
+
+                li.addEventListener('click', () => {
+                    detailProjectName.textContent = projectName;
+                    detailProjectDescription.textContent = projectDescription;
+                    detailProjectDate.textContent = projectDate;
+                    detailProjectFile.textContent = projectFile;
+                    projectDetailsModal.style.display ='flex';
                 });
 
                 li.appendChild(deleteBtn);
@@ -146,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const sentPatternEditor = CodeMirror.fromTextArea(document.getElementById('sent-pattern'), {
             lineNumbers: true,
             mode: 'javascript',
-            lineWrapping:true
+            
         });
 
         const receivedPatternEditor = CodeMirror.fromTextArea(document.getElementById('received-pattern'), {
             lineNumbers: true,
             mode: 'javascript',
-            lineWrapping:true
+            
         });
 
         // Dil seçimi değiştiğinde editör modunu güncelleme işlemleri
