@@ -7,22 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnPopup = document.querySelector('.btnLogin-popup');
         const iconClose = document.querySelector('.icon-close');
 
-        registerLink.onclick = () => {
-            wrapper.classList.add('active');
-        };
+        
+ 
+       btnPopup.onclick = () => {
+        wrapper.style.display = 'flex';
+       };
 
-        loginLink.onclick = () => {
-            wrapper.classList.remove('active');
-        };
-
-        btnPopup.onclick = () => {
-            wrapper.classList.add('active-popup');
-        };
-
-        iconClose.onclick = () => {
-            wrapper.classList.remove('active-popup');
-            wrapper.classList.remove('active');
-        };
+       iconClose.onclick = () => {
+        wrapper.style.display ='none';
+       };
     }
 
     //Registration form submission
@@ -68,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('project-list')) {
         const projectList = document.getElementById('project-list');
         const addProjectBtn = document.getElementById('add-project-btn');
+        
         const filterInput = document.getElementById('filter');
 
         // Modal elements
@@ -83,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
         addProjectBtn.addEventListener('click', () => {
             modal.style.display = 'flex';
         });
+
+        
 
         // Close modal event
         closeModal.addEventListener('click', () => {

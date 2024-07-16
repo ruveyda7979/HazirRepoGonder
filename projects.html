@@ -9,12 +9,7 @@
 <body>
     <header class="header">
         <a href="home.html" class="logo">Smart API Manager</a>
-        <nav class="navbar">
-            <a href="home.html">Home</a>
-            <a href="json.html">Json</a>
-            <a href="#">Projects</a>
-            <button class="btnLogin-popup">Login</button>
-        </nav>
+        
     </header>
     <h1>Projects</h1>
     <div class="container">
@@ -23,7 +18,9 @@
             <!-- Projeler buraya eklenecek -->
         </ul>
         <button id="add-project-btn">Add Project</button>
+        <button id="go-to-json-btn" onclick="window.location.href='json.html'">Go to JSON Page</button>
     </div>
+    
 
     <!--Modal Structure-->
 
@@ -42,6 +39,18 @@
             <button id="save-project-btn">Save Project</button>
 
         </div>
+    </div>
+
+    <!--Project Details Modal-->
+    <div id="project-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Project Details</h2>
+            <p></p>
+
+
+        </div>
+
     </div>
 
     <script src="js/scripts.js"></script>
