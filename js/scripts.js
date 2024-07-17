@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectFileInput = document.getElementById('project-file');
         const projectDateInput = document.getElementById('project-date');
 
+       
+
         // Project Details Modal Elements
         const projectDetailsModal = document.getElementById('project-details-modal');
         const closeDetailsModal = projectDetailsModal.querySelector('.close');
@@ -91,6 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const detailProjectDescription = document.getElementById('detail-project-description');
         const detailProjectDate = document.getElementById('detail-project-date');
         const detailProjectFile = document.getElementById('detail-project-file');
+
+         //Project Edit Modal
+         const editModal = document.getElementById('edit-project-modal');
+         const closeEditModal = document.querySelector('.close-edit');
+         const updateProjectBtn = document.getElementById('update-project-btn');
+         const editProjectNameInput = document.getElementById('edit-project-name');
+         const editProjectDescriptionInput = document.getElementById('edit-project-description');
+         const editProjectFileInput = document.getElementById('edit-project-file');
+         const editProjectDateInput = document.getElementById('edit-project-date');
+
+         let projects =[];
+         let currentEditIndex = null;
+
 
         // Added Project button click event to open modal
         addProjectBtn.addEventListener('click', () => {
@@ -109,6 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
             projectDetailsModal.style.display = 'none';
         });
 
+        // Close Edit Project Modal
+
+        closeEditModal.addEventListener('click', () => {
+            editModal.style.display ='none';
+        });
+
         // Save project button click event
         saveProjectBtn.addEventListener('click', () => {
             const projectName = projectNameInput.value;
@@ -117,53 +138,113 @@ document.addEventListener('DOMContentLoaded', () => {
             const projectDate = projectDateInput.value;
 
             if (projectName && projectDescription  && projectDate) {
-                const li = document.createElement('li');
-                li.innerHTML = `<strong>${projectName}</strong><p>${projectDescription}</p><p>${projectDate}</p>`;
-                const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Delete';
-                deleteBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Delete butonunun click event inin yayılmasını durdurmak için
-                    if (confirm('Are you sure you want to delete this project? ')) {
-                        projectList.removeChild(li);
+                const project = {
+                    name: projectName,
+                    description:projectDescription,
+                    file: projectFile,
+                    date:projectDate
+                };
+                projects.push(project);
+                renderProjects();
+                modal.style.display ='none';
+                clearInputs();
+            } else{
+                alert('Please fill in all fields');
+            }
+                });
+
+                //Update Projects
+
+                updateProjectBtn.addEventListener('click', () => {
+                    const projectName = editProjectNameInput.value;
+                    const projectDescription = editProjectDescriptionInput.value;
+                    const projectFile = editProjectFileInput.files[0] ? editProjectFileInput.files[0].name : projects[currentEditIndex].file;
+                    const projectDate = editProjectDateInput.value;
+
+                    if(projectName && projectDescription && projectDate){
+                        projects[currentEditIndex] = {
+                            name:projectName,
+                            description: projectDescription,
+                            file: projectFile,
+                            date: projectDate
+                        };
+
+                        renderProjects();
+                        editModal.style.display = 'none';
+
+                    } else{
+                        alert('Please fill in all fields');
                     }
                 });
 
-                li.addEventListener('click', () => {
-                    detailProjectName.textContent = projectName;
-                    detailProjectDescription.textContent = projectDescription;
-                    detailProjectDate.textContent = projectDate;
-                    detailProjectFile.textContent = projectFile;
-                    projectDetailsModal.style.display ='flex';
-                });
-
-                li.appendChild(deleteBtn);
+                //Render Projects 
+                function renderProjects(){
+                    projectList.innerHTML = '';
+                    projects.forEach((project,index) => {
+                        const li = document.createElement('li');
+                        li.innerHTML =`
+                        <strong>${project.name}</strong>
+                    <p>${project.description}</p>
+                    <p>${project.date}</p>
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">Delete</button>
+                `;
                 projectList.appendChild(li);
+                        
+                    });
 
-                // Clear inputs and close modal
-                projectNameInput.value = '';
-                projectDescriptionInput.value = '';
-                projectFileInput.value = '';
-                projectDateInput.value = '';
-                modal.style.display = 'none';
-            } else {
-                alert('Please fill in all fields');
-            }
-        });
+                    //Add Event Listeners to Edit and Delete buttons
+                    document.querySelectorAll('.edit-btn').forEach(button => {
 
-        // Projeleri filtreleme
+                        button.addEventListener('click', (e)=> {
+                            currentEditIndex = e.target.dataset.index;
+                            const project = projects[currentEditIndex];
+                            editProjectNameInput.value = project.name;
+                            editProjectDescriptionInput.value = project.description;
+                            editProjectDateInput.value = project.date;
+                            editModal.style.display = 'flex';
+                            
+                        });
+                    });
+
+                    document.querySelectorAll('.delete-btn').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            const index = e.target.dataset.index;
+                            if(confirm('Are you sure you want to delete this project?')) {
+                                project.splice(index, 1);
+                                renderProjects();
+                            }
+                        });
+                    });
+                }
+
+                //Clear Inputs
+                function clearInputs() {
+                    projectNameInput.value = '';
+                    projectDescriptionInput.value = '';
+                    projectFileInput.value = '';
+                    projectDateInput.value = '';
+                }
+
+                // Filter Projects
         filterInput.addEventListener('keyup', () => {
             const filterValue = filterInput.value.toLowerCase();
-            const projects = projectList.getElementsByTagName('li');
-            Array.from(projects).forEach(project => {
-                const projectName = project.firstChild.textContent;
-                if (projectName.toLowerCase().indexOf(filterValue) !== -1) {
-                    project.style.display = 'flex';
-                } else {
-                    project.style.display = 'none';
-                }
+            const filteredProjects = projects.filter(project => project.name.toLowerCase().includes(filterValue));
+            projectList.innerHTML = '';
+            filteredProjects.forEach((project, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${project.name}</strong>
+                    <p>${project.description}</p>
+                    <p>${project.date}</p>
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">Delete</button>
+                `;
+                projectList.appendChild(li);
             });
         });
     }
+
 
     // JSON Yönetim sayfasına özgü kodlar
     if (document.getElementById('json-container')) {
@@ -173,30 +254,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const saveBtn = document.getElementById('save-btn');
         const jsonList = document.getElementById('json-list');
 
+        const editModal = document.getElementById('edit-json-modal');
+        const closeEditModal = document.querySelector('.close-edit');
+        const updateJsonBtn = document.getElementById('update-json-btn');
+        const editJsonNameInput = document.getElementById('edit-json-name');
+        const editRequestUrlInput = document.getElementById('edit-request-url');
+        const editContentInput = document.getElementById('edit-content');
+        const editRelatedTableInput = document.getElementById('edit-related-table');
+        const editDateInput = document.getElementById('edit-date');
+        const editSentPatternEditor = CodeMirror.fromTextArea(document.getElementById('edit-sent-pattern'), {
+            lineNumbers: true,
+            mode: 'javascript',
+        });
+        const editReceivedPatternEditor = CodeMirror.fromTextArea(document.getElementById('edit-received-pattern'), {
+            lineNumbers: true,
+            mode: 'javascript',
+        });
+
         let jsonDataList = [];
+        let currentEditIndex = null;
 
-        // CodeMirror editörlerini oluşturma
-        const sentPatternEditor = CodeMirror.fromTextArea(document.getElementById('sent-pattern'), {
-            lineNumbers: true,
-            mode: 'javascript',
-            
-        });
+        
 
-        const receivedPatternEditor = CodeMirror.fromTextArea(document.getElementById('received-pattern'), {
-            lineNumbers: true,
-            mode: 'javascript',
-            
-        });
+        
 
-        // Dil seçimi değiştiğinde editör modunu güncelleme işlemleri
-        document.getElementById('sent-pattern-language').addEventListener('change', (event) => {
+        document.getElementById('edit-sent-pattern-language').addEventListener('change', (event) => {
             const mode = event.target.value;
-            sentPatternEditor.setOption('mode', mode);
+            editSentPatternEditor.setOption('mode', mode);
         });
 
-        document.getElementById('received-pattern-language').addEventListener('change', (event) => {
+        document.getElementById('edit-received-pattern-language').addEventListener('change', (event) => {
             const mode = event.target.value;
-            receivedPatternEditor.setOption('mode', mode);
+            editReceivedPatternEditor.setOption('mode', mode);
+        });
+
+        closeEditModal.addEventListener('click', () => {
+            editModal.style.display = 'none';
         });
 
         newJsonBtn.addEventListener('click', () => {
@@ -207,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchJsonInput.addEventListener('keyup', () => {
             const searchValue = searchJsonInput.value.toLowerCase();
             const jsonItems = jsonList.getElementsByTagName('li');
-            Array.from(jsonItems).forEach(item => {
+            Array.from(jsonItems).forEach((item) => {
                 const itemName = item.firstChild.textContent.toLowerCase();
                 if (itemName.includes(searchValue)) {
                     item.style.display = 'flex';
@@ -224,13 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 content: document.getElementById('content').value,
                 relatedTable: document.getElementById('related-table').value,
                 date: document.getElementById('date').value,
-                sentPattern: sentPatternEditor.getValue(),  // Bu satırı düzelttim
-                receivedPattern: receivedPatternEditor.getValue()  // Bu satırı düzelttim
+                sentPattern: sentPatternEditor.getValue(),
+                receivedPattern: receivedPatternEditor.getValue(),
             };
 
             if (jsonData.name) {
                 let li;
-                const existingIndex = jsonDataList.findIndex(data => data.name === jsonData.name);
+                const existingIndex = jsonDataList.findIndex((data) => data.name === jsonData.name);
                 if (existingIndex >= 0) {
                     li = jsonList.children[existingIndex];
                     jsonDataList[existingIndex] = jsonData;
@@ -242,6 +335,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     li.addEventListener('click', () => {
                         fillForm(jsonData);
+                        currentEditIndex = existingIndex;
+                        editJsonNameInput.value = jsonData.name;
+                        editRequestUrlInput.value = jsonData.url;
+                        editContentInput.value = jsonData.content;
+                        editRelatedTableInput.value = jsonData.relatedTable;
+                        editDateInput.value = jsonData.date;
+                        editSentPatternEditor.setValue(jsonData.sentPattern);
+                        editReceivedPatternEditor.setValue(jsonData.receivedPattern);
+                        editModal.style.display = 'flex';
                     });
 
                     const deleteBtn = document.createElement('button');
@@ -249,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     deleteBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         if (confirm('Are you sure you want to delete this JSON entry?')) {
-                            const index = jsonDataList.findIndex(data => data.name === jsonData.name);
+                            const index = jsonDataList.findIndex((data) => data.name === jsonData.name);
                             jsonDataList.splice(index, 1);
                             jsonList.removeChild(li);
                             clearForm();
@@ -265,18 +367,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        updateJsonBtn.addEventListener('click', () => {
+            const jsonData = {
+                name: editJsonNameInput.value,
+                url: editRequestUrlInput.value,
+                content: editContentInput.value,
+                relatedTable: editRelatedTableInput.value,
+                date: editDateInput.value,
+                sentPattern: editSentPatternEditor.getValue(),
+                receivedPattern: editReceivedPatternEditor.getValue(),
+            };
+
+            if (jsonData.name) {
+                jsonDataList[currentEditIndex] = jsonData;
+                renderJsonList();
+                editModal.style.display = 'none';
+            } else {
+                alert('JSON Name is required.');
+            }
+        });
+
         function fillForm(jsonData) {
             document.getElementById('json-name').value = jsonData.name;
             document.getElementById('request-url').value = jsonData.url;
             document.getElementById('content').value = jsonData.content;
             document.getElementById('related-table').value = jsonData.relatedTable;
             document.getElementById('date').value = jsonData.date;
-        
-            // CodeMirror editörlerinin değerlerini güncelle
             sentPatternEditor.setValue(jsonData.sentPattern);
             receivedPatternEditor.setValue(jsonData.receivedPattern);
-        
-            // CodeMirror editörlerinin içeriğini yeniden çiz
             sentPatternEditor.refresh();
             receivedPatternEditor.refresh();
         }
@@ -289,6 +407,40 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('date').value = '';
             sentPatternEditor.setValue('');
             receivedPatternEditor.setValue('');
+        }
+
+        function renderJsonList() {
+            jsonList.innerHTML = '';
+            jsonDataList.forEach((jsonData, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${jsonData.name}</span>`;
+                li.addEventListener('click', () => {
+                    fillForm(jsonData);
+                    currentEditIndex = index;
+                    editJsonNameInput.value = jsonData.name;
+                    editRequestUrlInput.value = jsonData.url;
+                    editContentInput.value = jsonData.content;
+                    editRelatedTableInput.value = jsonData.relatedTable;
+                    editDateInput.value = jsonData.date;
+                    editSentPatternEditor.setValue(jsonData.sentPattern);
+                    editReceivedPatternEditor.setValue(jsonData.receivedPattern);
+                    editModal.style.display = 'flex';
+                });
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (confirm('Are you sure you want to delete this JSON entry?')) {
+                        jsonDataList.splice(index, 1);
+                        renderJsonList();
+                        clearForm();
+                    }
+                });
+
+                li.appendChild(deleteBtn);
+                jsonList.appendChild(li);
+            });
         }
     }
 });

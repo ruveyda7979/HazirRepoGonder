@@ -8,6 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/dart/dart.min.js"></script>
     <!-- İhtiyacınız olan diğer diller için ek scriptler buraya -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -49,6 +51,8 @@
                     <select  id="sent-pattern-language">
                         <option value="javascript">JavaScript</option>
                         <option value="python">Python</option>
+                        <option value="clike">C/C++/Java/C#</option>
+                        <option value="dart">Dart</option>
                         <!--Diğer diller buraya eklenebilir-->
                     </select>
                     <textarea  id="sent-pattern" class="editor"></textarea>
@@ -59,6 +63,8 @@
                     <select id="received-pattern-language">
                         <option value="javascript">JavaScript</option>
                         <option value="python">Python</option>
+                        <option value="clike">C/C++/Java/C#</option>
+                        <option value="dart">Dart</option>
                         <!--Diğer diller buraya eklenebilir-->
         
                     </select>
@@ -78,7 +84,41 @@
         </div>
 
         </div>
-    
+
+        <!--Edit JSON Modal-->
+        <div id="edit-json-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-edit">&times;</span>
+                <h2>Edit JSON</h2>
+                <label for="edit-json-name">JSON Name:</label>
+                <input type="text" id="edit-json-name">
+                <label for="edit-request-url">Request URL:</label>
+                <input type="text" id="edit-request-url">
+                <label for="edit-content">Content:</label>
+                <textarea id="edit-content"></textarea>
+                <label for="edit-related-table">Related Table:</label>
+                <input type="text" id="edit-related-table">
+                <label for="edit-date">Date:</label>
+                <input type="date" id="edit-date">
+                <label for="edit-sent-pattern">Sent Pattern:</label>
+                <select id="edit-sent-pattern-language">
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="clike">C/C++/Java/C#</option>
+                    <option value="dart">Dart</option>
+                </select>
+                <textarea id="edit-sent-pattern" class="editor"></textarea>
+                <label for="edit-received-pattern">Received Pattern:</label>
+                <select id="edit-received-pattern-language">
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="clike">C/C++/Java/C#</option>
+                    <option value="dart">Dart</option>
+                </select>
+                <textarea id="edit-received-pattern" class="editor"></textarea>
+                <button id="update-json-btn">Update JSON</button>
+            </div>
+        </div>
 
         </div>
 
