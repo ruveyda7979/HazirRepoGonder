@@ -7,30 +7,35 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
-    background: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 99;
+    padding: 20px 100px;
+    background:transparent;
+    z-index: 1000;
 }
 
+.header .header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 .logo {
-    font-size: 32px;
     color: #fff;
+    font-size: 35px;
     text-decoration: none;
     font-weight: 700;
     pointer-events: none;
 }
-
-
-
-
 
 .navbar .btnLogin-popup {
     position: relative;
@@ -47,7 +52,7 @@
 }
 
 .navbar .btnLogin-popup:hover {
-    background: #333;
+    background: rgba(255, 255, 255, 0.2);
     color: #fff;
 }
 
@@ -275,8 +280,9 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding-top: 100px;
     background-color:#c5d5e8;
+    
 }
 
 /* For Projects Page*/
@@ -473,12 +479,28 @@ button:hover {
     background: #555;
 }
 
+.form-group{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-item {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.form-item:last-child {
+    margin-right: 0;
+}
+
 #json-form label {
     display: block;
     margin-top: 10px;
 }
 
 #json-form input[type="text"],
+#json-form input[type="date"],
 #json-form textarea {
     width: 100%;
     padding: 10px;
@@ -490,7 +512,7 @@ button:hover {
 }
 
 #json-form textarea.editor {
-    height: 600px;
+    height: 1000px;
 }
 
 #json-form button {
@@ -526,7 +548,7 @@ button:hover {
 }
 
 .CodeMirror {
-    height: 600px; /*Editör yüksekliği büyütülmüş*/
+    height: 1000px; /*Editör yüksekliği büyütülmüş*/
     border: 1px solid #ddd; /*Sınır ekle */
     border-radius: 4px;
     box-sizing: border-box;
@@ -545,3 +567,12 @@ button:hover {
 #back-to-projects-btn:hover {
     background: #333;
 }
+
+.project-name-container {
+    text-align: left;
+    margin: 60px 100px 5px 100px; 
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
