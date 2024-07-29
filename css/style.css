@@ -62,7 +62,7 @@ body {
 
 /* Login ve Register popup stilleri */
 .wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -71,7 +71,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    
 }
 
 .wrapper.active-popup {
@@ -79,11 +79,33 @@ body {
 }
 
 .logreg-box {
+    position: relative;
+    background: #fff;
     width: 400px;
     padding: 40px;
-    background: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.logreg-box .icon-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.logreg-box .icon-close i {
+    font-size: 20px;
+    color: #333;
 }
 
 .form-box {
@@ -92,6 +114,10 @@ body {
 
 .form-box.active {
     display: block;
+}
+
+.logreg-title {
+    margin-bottom: 20px;
 }
 
 .logreg-title h2 {
