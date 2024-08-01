@@ -62,7 +62,7 @@ body {
 
 /* Login ve Register popup stilleri */
 .wrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -71,6 +71,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
     
 }
 
@@ -84,29 +85,12 @@ body {
     width: 400px;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.logreg-box .icon-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
 
-.logreg-box .icon-close i {
-    font-size: 20px;
-    color: #333;
-}
+
 
 .form-box {
     display: none;
@@ -116,9 +100,7 @@ body {
     display: block;
 }
 
-.logreg-title {
-    margin-bottom: 20px;
-}
+
 
 .logreg-title h2 {
     margin-bottom: 10px;
@@ -232,11 +214,35 @@ body {
 
 .icon-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
+    top: 10px; /* Üstten biraz daha boşluk */
+    right: 10px; /* Sağdan biraz daha boşluk */
+    width: 45px;
+    height: 45px;
+    background: #fff;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Gölge ekleyin */
+    transition: background-color 0.3s, transform 0.3s; /* Geçiş efektleri */
+}
+
+.icon-close i {
+    font-size: 32px;
     color: #333;
+    transition: color 0.3s, transform 0.3s; /* Geçiş efektleri */
+}
+
+/* Hover etkisiyle değişiklikler */
+.icon-close:hover {
+    background: #ff0000; /* Arka plan rengini kırmızıya değiştirin */
+    transform: scale(1.1); /* Biraz büyütün */
+}
+
+.icon-close:hover i {
+    color: #fff; /* Yazı rengini beyaza değiştirin */
+    transform: rotate(90deg); /* İkonu döndürün */
 }
 
 /* Home sayfası için özel stiller */
