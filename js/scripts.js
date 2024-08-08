@@ -252,11 +252,19 @@ document.addEventListener('DOMContentLoaded', () => {
          const backToProjectsBtn = document.getElementById('back-to-projects-btn');
          const newJsonBtn = document.getElementById('new-json-btn');
  
+
          //if (backToProjectsBtn) {
            //  backToProjectsBtn.addEventListener('click', () => {
              //    window.location.href = 'projects.html';
              //});
          //}
+
+         if (backToProjectsBtn) {
+             backToProjectsBtn.addEventListener('click', () => {
+                 window.location.href = 'projects.html';
+             });
+         }
+
 
          newJsonBtn.addEventListener('click', () => {
             clearForm();
