@@ -70,16 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        const loginForm = document.querySelector('.login-form');
-        if (loginForm) {
-            loginForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const email = loginForm.querySelector('input[type="email"]').value;
-                const password = loginForm.querySelector('input[type="password"]').value;
-                alert(`Logged in with Email: ${email}`);
-                window.location.href = 'projects.html';
-            });
-        }
+        //const loginForm = document.querySelector('.login-form');
+        //if (loginForm) {
+          //  loginForm.addEventListener('submit', (event) => {
+            //    event.preventDefault();
+              //  const email = loginForm.querySelector('input[type="email"]').value;
+                //const password = loginForm.querySelector('input[type="password"]').value;
+                //alert(`Logged in with Email: ${email}`);
+                //window.location.href = 'projects.html';
+            //});
+        //}
     }
 
     // Projects.html sayfasına özgü kodlar
@@ -252,11 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
          const backToProjectsBtn = document.getElementById('back-to-projects-btn');
          const newJsonBtn = document.getElementById('new-json-btn');
  
-         if (backToProjectsBtn) {
-             backToProjectsBtn.addEventListener('click', () => {
-                 window.location.href = 'projects.html';
-             });
-         }
+         //if (backToProjectsBtn) {
+           //  backToProjectsBtn.addEventListener('click', () => {
+             //    window.location.href = 'projects.html';
+             //});
+         //}
 
          newJsonBtn.addEventListener('click', () => {
             clearForm();
